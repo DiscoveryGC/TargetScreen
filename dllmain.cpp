@@ -336,12 +336,12 @@ void TraverseEquipment()
 {
 	__asm
 	{
-			cmp DWORD PTR[ebp], 0x005D8504
-			je Orginal
+		cmp DWORD PTR[ebp], 0x005D8504
+		je Orginal
 
-			pushad
+		pushad
 		RepeatTraverse :
-			mov ebp, eax
+		mov ebp, eax
 			lea ebx, [eax + 0x50]
 			mov ecx, [eax]
 			mov eax, [eax + 0x4]
@@ -350,10 +350,21 @@ void TraverseEquipment()
 			je Nulltraverse
 			jmp Normaltraverse
 
-		Nulltraverse:
-			add eax, 0x4
+			Nulltraverse :
+		add eax, 0x4
 
-		Normaltraverse:
+			Normaltraverse :
+			//mov DWORD PTR[eax+0x4], 0x3f800000
+			//mov DWORD PTR[eax+0x8], 0x0
+			//mov DWORD PTR[eax+0xC], 0x0
+			//mov DWORD PTR[eax+0x10], 0x0
+			//mov DWORD PTR[eax+0x14], 0x3f800000
+			//mov DWORD PTR[eax+0x18], 0x0
+			//mov DWORD PTR[eax+0x1C], 0x0
+			//mov DWORD PTR[eax+0x20], 0x0
+			//mov DWORD PTR[eax+0x24], 0x3f800000
+
+			////// orginal values
 			mov edx, Reservetick
 			imul edx, edx, 0x10
 			lea esi, Reserveadresses
@@ -374,8 +385,8 @@ void TraverseEquipment()
 			jg Subgroup
 			jmp Basegroup
 
-		Subgroup:
-			fld[TraverseTransform]
+			Subgroup :
+		fld[TraverseTransform]
 			fstp[eax + 0x28]
 			fld[TraverseTransform + 0x4]
 			fstp[eax + 0x2C]
@@ -383,8 +394,8 @@ void TraverseEquipment()
 			fstp[eax + 0x30]
 			jmp Final
 
-		Basegroup :
-			mov edx, [esp + 0x48]
+			Basegroup :
+		mov edx, [esp + 0x48]
 			add edx, 0x2C
 			fld[edx]
 			fld[ebx]
@@ -402,8 +413,8 @@ void TraverseEquipment()
 			fst[TraverseTransform + 0x8]
 			fstp[eax + 0x30]
 
-		Final:
-			inc TickTraverse
+			Final:
+		inc TickTraverse
 			mov eax, [ebp + 0x1c]
 			cmp eax, 0x0
 			jne RepeatTraverse
@@ -414,8 +425,8 @@ void TraverseEquipment()
 			lea ecx, [esp + 0x0000009C]
 			jmp Traverseequipmentreturn
 
-		Orginal:
-			mov Ownship, 1
+			Orginal :
+		mov Ownship, 1
 			lea ecx, [esp + 0x0000009C]
 			jmp Traverseequipmentreturn
 	}
@@ -428,76 +439,76 @@ void TraverseArchgroup()
 	{
 		cmp Ownship, 0x0
 		jg Orginal
+
 		pushad
-
-	RepeatTraverse :
+		RepeatTraverse :
 		mov ebp, eax
-		lea ebx, [eax + 0x50]
-		mov ecx, [eax]
-		mov eax, [eax + 0x4]
+			lea ebx, [eax + 0x50]
+			mov ecx, [eax]
+			mov eax, [eax + 0x4]
 
-		cmp ecx, 0x0
-		je Nulltraverse
-		jmp Normaltraverse
+			cmp ecx, 0x0
+			je Nulltraverse
+			jmp Normaltraverse
 
-		Nulltraverse:
+			Nulltraverse :
 		add eax, 0x4
 
-	Normaltraverse:
-		mov DWORD PTR[eax + 0x4], 0x3f800000
-		mov DWORD PTR[eax + 0x8], 0x0
-		mov DWORD PTR[eax + 0xC], 0x0
-		mov DWORD PTR[eax + 0x10], 0x0
-		mov DWORD PTR[eax + 0x14], 0x3f800000
-		mov DWORD PTR[eax + 0x18], 0x0
-		mov DWORD PTR[eax + 0x1C], 0x0
-		mov DWORD PTR[eax + 0x20], 0x0
-		mov DWORD PTR[eax + 0x24], 0x3f800000
+			Normaltraverse :
+			mov DWORD PTR[eax + 0x4], 0x3f800000
+			mov DWORD PTR[eax + 0x8], 0x0
+			mov DWORD PTR[eax + 0xC], 0x0
+			mov DWORD PTR[eax + 0x10], 0x0
+			mov DWORD PTR[eax + 0x14], 0x3f800000
+			mov DWORD PTR[eax + 0x18], 0x0
+			mov DWORD PTR[eax + 0x1C], 0x0
+			mov DWORD PTR[eax + 0x20], 0x0
+			mov DWORD PTR[eax + 0x24], 0x3f800000
 
-		cmp TickTraverse, 0x0
-		jg Subgroup
-		jmp Basegroup
+			cmp TickTraverse, 0x0
+			jg Subgroup
+			jmp Basegroup
 
-	Subgroup:
+			Subgroup :
 		fld[TraverseTransform]
-		fstp[eax + 0x28]
-		fld[TraverseTransform + 0x4]
-		fstp[eax + 0x2C]
-		fld[TraverseTransform + 0x8]
-		fstp[eax + 0x30]
-		jmp Final
+			fstp[eax + 0x28]
+			fld[TraverseTransform + 0x4]
+			fstp[eax + 0x2C]
+			fld[TraverseTransform + 0x8]
+			fstp[eax + 0x30]
+			jmp Final
 
-	Basegroup:
+			Basegroup :
 		mov edx, [esp + 0x48]
-		add edx, 0x2C
-		fld[edx]
-		fld[ebx]
-		faddp st(1), st(0)
-		fst[TraverseTransform]
-		fstp[eax + 0x28]
-		fld[edx + 4]
-		fld[ebx + 0x4]
-		faddp st(1), st(0)
-		fst[TraverseTransform + 0x4]
-		fstp[eax + 0x2C]
-		fld[edx + 0x8]
-		fld[ebx + 0x8]
-		faddp st(1), st(0)
-		fst[TraverseTransform + 0x8]
-		fstp[eax + 0x30]
+			add edx, 0x2C
+			fld[edx]
+			fld[ebx]
+			faddp st(1), st(0)
+			fst[TraverseTransform]
+			fstp[eax + 0x28]
+			fld[edx + 4]
+			fld[ebx + 0x4]
+			faddp st(1), st(0)
+			fst[TraverseTransform + 0x4]
+			fstp[eax + 0x2C]
+			fld[edx + 0x8]
+			fld[ebx + 0x8]
+			faddp st(1), st(0)
+			fst[TraverseTransform + 0x8]
+			fstp[eax + 0x30]
 
-	Final:
+			Final:
 		inc TickTraverse
-		mov eax, [ebp + 0x1c]
-		cmp eax, 0x0
-		jne RepeatTraverse
+			mov eax, [ebp + 0x1c]
+			cmp eax, 0x0
+			jne RepeatTraverse
 
-		popad
-		mov TickTraverse, 0
+			popad
+			mov TickTraverse, 0
 
-	Orginal:
+			Orginal:
 		lea ecx, [esp + 0x0000009C]
-		jmp Traversearchreturn
+			jmp Traversearchreturn
 	}
 }
 
@@ -508,34 +519,34 @@ void TraverseDefault()
 	{
 		pushad
 		cmp Reservetick, 0
-		je EarlyExit
+		je Notthistime
 
-	Loop:
+		Repeatafterme :
 		lea ebx, Reserveadresses
-		mov ecx, Reservetick
-		sub ecx, 0x1
-		imul eax, ecx, 0x10
-		add eax, ebx
+			mov ecx, Reservetick
+			sub ecx, 0x1
+			imul eax, ecx, 0x10
+			add eax, ebx
 
-		mov ebx, [eax]
-		mov ecx, [eax + 0x04]
-		mov[ebx], ecx
-		mov ecx, [eax + 0x08]
-		mov[ebx + 0x4], ecx
-		mov ecx, [eax + 0xC]
-		mov[ebx + 0x8], ecx
+			mov ebx, [eax]
+			mov ecx, [eax + 0x04]
+			mov[ebx], ecx
+			mov ecx, [eax + 0x08]
+			mov[ebx + 0x4], ecx
+			mov ecx, [eax + 0xC]
+			mov[ebx + 0x8], ecx
 
-		dec Reservetick
-		cmp Reservetick, 0x0
-		jne Loop
-	EarlyExit:
+			dec Reservetick
+			cmp Reservetick, 0x0
+			jne Repeatafterme
+			Notthistime :
 		popad
-		test al, al
-		je Confirmedjump
-		mov ax, [esi + 0x08]
-		jmp Traversedefaultreturn2
+			test al, al
+			je Confirmedjump
+			mov ax, [esi + 0x08]
+			jmp Traversedefaultreturn2
 
-	Confirmedjump:
+			Confirmedjump :
 		jmp Traversedefaultreturn
 	}
 }
@@ -891,34 +902,44 @@ void Catchbutton()
 		cmp ClickHUDpatch, 0x1
 		je Process
 
-	Invalidclick:
+		Invalidclick :
 		popad
-		cmp ClickHUDpatch, 0x0
-		jne Defaultreturn
-		jmp Catchbuttonreturn
+			cmp ClickHUDpatch, 0x0
+			jne Defaultreturn
+			jmp Catchbuttonreturn
 
-	Defaultreturn:
+			Defaultreturn:
 		pushad
 		call ExpandedHudWindow
 		popad
 
 		test al, al
-		jmp CatchbuttonreturnNoswitch
+			jmp CatchbuttonreturnNoswitch
 
-	Process:
+		Process:
 		cmp Clickpatch, 0x0
 		je Patchit
 		jne Unpatchit
 
-	Patchit :
+		Patchit :
 		call PatchX
-		mov Clickpatch, 0x1
-		jmp Invalidclick
+			mov Clickpatch, 0x1
 
-	Unpatchit :
+			//cmp ClickHUDpatch, 0x0
+			//je Invalidclick
+			//
+			//call ExpandedHudWindow
+			jmp Invalidclick
+
+			Unpatchit :
 		call UnpatchX
-		mov Clickpatch, 0x0
-		jmp Invalidclick
+			mov Clickpatch, 0x0
+
+			//cmp ClickHUDpatch, 0x0
+			//je Invalidclick
+			//
+			//call ExpandedHudWindow
+			jmp Invalidclick
 
 	}
 }
@@ -938,19 +959,21 @@ void CatchbuttonHUD()
 		je Patchit
 		jne Unpatchit
 
-	Patchit:
+		Patchit :
 		call ExpandedHudWindow
-		mov ClickHUDpatch, 0x1
-		jmp Invalidclick
+			mov ClickHUDpatch, 0x1
+			jmp Invalidclick
 
-	Unpatchit:
+			Unpatchit :
 		call DefaultHudWindow
-		mov ClickHUDpatch, 0x0
-		jmp Invalidclick
+			mov ClickHUDpatch, 0x0
+			jmp Invalidclick
 
-	Invalidclick:
+
+			Invalidclick :
 		popad
-		jmp CatchbuttonHUDreturn
+
+			jmp CatchbuttonHUDreturn
 	}
 }
 
@@ -970,16 +993,16 @@ void StealHudTarget()//Steal Hud_Target creation adress, plus create and destroy
 		pushad
 		call CreateHud
 		popad
-	SkipOperation :
+		SkipOperation :
 		push eax
-		lea eax, [CustomHudAdress + 0xc]
-		mov eax, [eax]
-		mov eax, [eax + 0x84]
-		mov CustomHudTargetModelAdress, eax
-		pop eax
+			lea eax, [CustomHudAdress + 0xc]
+			mov eax, [eax]
+			mov eax, [eax + 0x84]
+			mov CustomHudTargetModelAdress, eax
+			pop eax
 
-		mov HudFirstLaunch, 0x1
-		jmp HudTargetreturn
+			mov HudFirstLaunch, 0x1
+			jmp HudTargetreturn
 	}
 }
 
