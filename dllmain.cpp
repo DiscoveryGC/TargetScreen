@@ -354,15 +354,15 @@ void TraverseEquipment()
 		add eax, 0x4
 
 			Normaltraverse :
-			//mov DWORD PTR[eax+0x4], 0x3f800000
-			//mov DWORD PTR[eax+0x8], 0x0
-			//mov DWORD PTR[eax+0xC], 0x0
-			//mov DWORD PTR[eax+0x10], 0x0
-			//mov DWORD PTR[eax+0x14], 0x3f800000
-			//mov DWORD PTR[eax+0x18], 0x0
-			//mov DWORD PTR[eax+0x1C], 0x0
-			//mov DWORD PTR[eax+0x20], 0x0
-			//mov DWORD PTR[eax+0x24], 0x3f800000
+			// mov DWORD PTR[eax+0x4], 0x3f800000
+			// mov DWORD PTR[eax+0x8], 0x0
+			// mov DWORD PTR[eax+0xC], 0x0
+			// mov DWORD PTR[eax+0x10], 0x0
+			// mov DWORD PTR[eax+0x14], 0x3f800000
+			// mov DWORD PTR[eax+0x18], 0x0
+			// mov DWORD PTR[eax+0x1C], 0x0
+			// mov DWORD PTR[eax+0x20], 0x0
+			// mov DWORD PTR[eax+0x24], 0x3f800000
 
 			////// orginal values
 			mov edx, Reservetick
@@ -437,6 +437,11 @@ void TraverseArchgroup()
 {
 	__asm
 	{
+		mov ecx, [esp+0x28]
+		mov ecx, [ecx+0x4C]
+		cmp ecx, 0x303
+		je Orginal
+
 		cmp Ownship, 0x0
 		jg Orginal
 
@@ -455,20 +460,20 @@ void TraverseArchgroup()
 		add eax, 0x4
 
 			Normaltraverse :
-			mov DWORD PTR[eax + 0x4], 0x3f800000
-			mov DWORD PTR[eax + 0x8], 0x0
-			mov DWORD PTR[eax + 0xC], 0x0
-			mov DWORD PTR[eax + 0x10], 0x0
-			mov DWORD PTR[eax + 0x14], 0x3f800000
-			mov DWORD PTR[eax + 0x18], 0x0
-			mov DWORD PTR[eax + 0x1C], 0x0
-			mov DWORD PTR[eax + 0x20], 0x0
-			mov DWORD PTR[eax + 0x24], 0x3f800000
+			// mov DWORD PTR[eax + 0x4], 0x3f800000
+			// mov DWORD PTR[eax + 0x8], 0x0
+			// mov DWORD PTR[eax + 0xC], 0x0
+			// mov DWORD PTR[eax + 0x10], 0x0
+			// mov DWORD PTR[eax + 0x14], 0x3f800000
+			// mov DWORD PTR[eax + 0x18], 0x0
+			// mov DWORD PTR[eax + 0x1C], 0x0
+			// mov DWORD PTR[eax + 0x20], 0x0
+			// mov DWORD PTR[eax + 0x24], 0x3f800000
 
 			cmp TickTraverse, 0x0
 			jg Subgroup
 			jmp Basegroup
-
+			
 			Subgroup :
 		fld[TraverseTransform]
 			fstp[eax + 0x28]
