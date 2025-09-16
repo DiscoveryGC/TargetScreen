@@ -1,6 +1,5 @@
 .vs/*
 *.pdb
-*.vcxproj*
 *.htm
 Release/TargetScreen.tlog/*
 *.log
